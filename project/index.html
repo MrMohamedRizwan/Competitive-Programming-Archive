@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Session App</title>
+</head>
+<body>
+    <h1>Single Session App</h1>
+    <div id="login-form">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <button onclick="login()">Login</button>
+        <p id="login-message"></p>
+    </div>
+    <div id="logout-form" style="display:none;">
+        <h2>Welcome, <span id="user"></span></h2>
+        <button onclick="logout()">Logout</button>
+        <p id="logout-message"></p>
+    </div>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username })
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('login-message').innerText = '';
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('user').innerText = username;
+                document.getElementById('logout-form').style.display = 'block';
+            } else {
+                document.getElementById('login-message').innerText = result.message;
+            }
+        }
+
+        async function logout() {
+            const response = await fetch('/logout', {
+                method: 'POST'
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('logout-message').innerText = '';
+                document.getElementById('logout-form').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+            } else {
+                document.getElementById('logout-message').innerText = result.message;
+            }
+        }
+    </script>
+</body>
+</html>
