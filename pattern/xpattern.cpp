@@ -23,6 +23,31 @@ void solve()
     }
 
 }
+void solve1()
+{
+    int n=5;
+    for(int i=0;i<n;i++)
+    {
+      for(int j=0;j<n-i;j++)
+      cout<<" ";
+
+      for(int j=i;j>=0;j--)
+      cout<<j;
+      for(int j=1;j<=i;j++)
+      cout<<j;
+      // for(int j=0;j<=i;j++)
+      // cout<<j;
+      cout<<endl;
+    }
+
+}
+
+void solve2()
+{
+  char *ptr="hihihi";
+  cout<<ptr+4;
+
+}
 
 
 int main(){
@@ -36,7 +61,9 @@ int main(){
   int t=1;
   //cin>>t;
   while(t--){
-    solve();
+    // solve();
+    // solve1();
+    solve2();
   }
   return 0;
 
