@@ -2,7 +2,8 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #define ll long long int
-using namespace std;class Taxi {
+using namespace std;
+class Taxi {
 public:
     int getDropTime(){
         return dropTime;
@@ -83,27 +84,30 @@ string booking(char pickupLocation,char dropLocation, int pickupTime)
     vector<Taxi>bookHistory;
     if(taxiList.size()<taxiLimit)
     {
-        taxiList.push_back(Taxi());
+        Taxi newTaxi;
+        newTaxi.setTaxiId(taxiList.size() + 1);
+        newTaxi.setCurrentLocation('A');
+        taxiList.push_back(newTaxi);
     }
     int min=INT_MAX;
-    Taxi taxiReady = nullptr;
-    for(Taxi t:taxiList)
+    Taxi *taxiReady = nullptr;
+    for(auto &t:taxiList)
     {
         if(pickupTime>=t.getDropTime()&&abs(t.getPickupLocation()-pickupLocation)<min)
         {
-            taxiReady=t;
+            taxiReady=&t;
             min=abs(t.getPickupLocation()-pickupLocation);
         }
         if(taxiReady!=nullptr)
         {
-            taxiReady.setCustomerId(idGenerator++);
-            taxiReady.setPickupLocation(pickupLocation);
-            taxiReady.setDropLocation(dropLocation);
-            taxiReady.setCurrentLocation(dropLocation)
-            taxiReady.setTaxiId(find(taxiList.begin(),taxiList.end(),taxiReady)-taxiList.begin());
-            taxiReady.setPickupTime(pickupTime);
-            taxiReady.setDropTime(pickupTime+abs(dropLocation-pickupLocation));
-            taxiReady.setEarnings(abs(dropLocation-pickupLocation)*(100+(10*10)));
+            taxiReady->setCustomerId(idGenerator++);
+            taxiReady->setPickupLocation(pickupLocation);
+            taxiReady->setDropLocation(dropLocation);
+            taxiReady->setCurrentLocation(dropLocation);
+            taxiReady->setTaxiId(find(taxiList.begin(),taxiList.end(),taxiReady)-taxiList.begin());
+            taxiReady->setPickupTime(pickupTime);
+            taxiReady->setDropTime(pickupTime+abs(dropLocation-pickupLocation));
+            taxiReady->setEarnings(abs(dropLocation-pickupLocation)*(100+(10*10)));
         }
     }
 
