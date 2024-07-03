@@ -206,7 +206,7 @@ int main() {
             case 2: {
                 MainClass b;
                 b.teacher();
-                break;
+                break;q
             }
             case 3: {
                 MainClass c;
